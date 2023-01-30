@@ -19,7 +19,7 @@ namespace NTNP.API.Controllers
         public IActionResult Index(int id)
         {
             var data = _unitOfWork.UserRepository.Find(1);
-            return Ok(id);
+            return Ok(data);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NTNP.API.Migrations;
 using NTNP.EFCore.Context;
 using NTNP.Infratructure;
 
@@ -34,6 +35,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+
+
 builder.Services.AddDbContext<NTNPContext>(
             options => options.UseNpgsql(configuration.GetConnectionString("NTNP"), b => b.MigrationsAssembly("NTNP.API")));
 
@@ -48,6 +51,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//
+app.Migrate();
 
 app.UseHttpsRedirection();
 
