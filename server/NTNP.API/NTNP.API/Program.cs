@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using NTNP.API.Middlewares;
 using NTNP.API.Migrations;
 using NTNP.EFCore.Context;
@@ -13,6 +15,10 @@ IConfiguration configuration = new ConfigurationBuilder()
                             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                             .Build();
 // Add services to the container.
+
+
+NLog.LogManager.Configuration = new NLogLoggingConfiguration(configuration.GetSection("NLog"));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,6 +49,8 @@ builder.Services.AddDbContext<NTNPContext>(
 
 // Add app services from NTNP
 builder.Services.AddInfrastructureServices();
+
+builder.Host.UseNLog();
 
 var app = builder.Build();
 

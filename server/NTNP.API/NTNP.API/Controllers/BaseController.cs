@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace NTNP.API.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : ControllerBase
     {
-        public IActionResult Index()
+        protected NLog.ILogger _logger;
+        public BaseController()
         {
-            return View();
+            _logger = LogManager.GetCurrentClassLogger();
         }
     }
 }
