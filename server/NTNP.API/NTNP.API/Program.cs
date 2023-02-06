@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NTNP.API.Middlewares;
 using NTNP.API.Migrations;
 using NTNP.EFCore.Context;
 using NTNP.Infratructure;
@@ -44,6 +45,12 @@ builder.Services.AddDbContext<NTNPContext>(
 builder.Services.AddInfrastructureServices();
 
 var app = builder.Build();
+
+//Only apply swagger authentication for DEV and Production environment
+if (builder.Environment.EnvironmentName != "Development")
+{
+    app.UseMiddleware<SwaggerAuthMiddleware>();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

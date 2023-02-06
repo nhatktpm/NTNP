@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NTNP.EFCore.Models.ApplicationParameters;
 using NTNP.EFCore.Models.Users;
 
 namespace NTNP.EFCore.Context
@@ -16,6 +17,7 @@ namespace NTNP.EFCore.Context
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationParameter> ApplicationParameters { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
