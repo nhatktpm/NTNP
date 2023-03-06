@@ -9,8 +9,7 @@ namespace NTNP.API.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            _logger.Error("test");
-            return Ok("ádasda");
+            return Ok("Ok");
         }
     }
 }

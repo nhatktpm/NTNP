@@ -18,4 +18,9 @@
     <ProjectReference Include="..\NTNP.Infratructure\NTNP.Infratructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Dtos\RequestDto\" />
+    <Folder Include="VocabularyAppServices\Dtos\ResponseDtos\" />
+  </ItemGroup>
+
 </Project>

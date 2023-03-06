@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NTNP.AppServices
+namespace NTNP.AppServices.VocabularyAppServices.Validation
 {
-    internal class Class1
+    public class DeleteVocabularyValidation
     {
     }
 }

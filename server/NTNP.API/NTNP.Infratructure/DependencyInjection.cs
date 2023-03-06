@@ -2,6 +2,7 @@
 using NTNP.EFCore.Context;
 using NTNP.Infratructure.Interfaces;
 using NTNP.Infratructure.Repositories.User;
+using NTNP.Infratructure.Repositories.Vocabularies;
 
 namespace NTNP.Infratructure
 {
@@ -15,6 +16,7 @@ namespace NTNP.Infratructure
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IVocabularyRepository, VocabularyRepository>();
 
             return services;
         }

@@ -3,6 +3,7 @@ using NLog.Extensions.Logging;
 using NLog.Web;
 using NTNP.API.Middlewares;
 using NTNP.API.Migrations;
+using NTNP.AppServices;
 using NTNP.EFCore.Context;
 using NTNP.Infratructure;
 
@@ -48,6 +49,7 @@ builder.Services.AddDbContext<NTNPContext>(
             options => options.UseNpgsql(configuration.GetConnectionString("NTNP"), b => b.MigrationsAssembly("NTNP.API")));
 
 // Add app services from NTNP
+builder.Services.AddAppService();
 builder.Services.AddInfrastructureServices();
 
 builder.Host.UseNLog();
