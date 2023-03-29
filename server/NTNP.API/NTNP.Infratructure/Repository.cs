@@ -62,5 +62,10 @@ namespace NTNP.Infratructure
         {
             DbSet.Update(entity);
         }
+
+        public void HardDelete(T entity)
+        {
+            DbSet.Remove(entity);
+        }
     }
 }

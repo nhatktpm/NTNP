@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NTNP.EFCore.Models.ApplicationParameters;
 using NTNP.EFCore.Models.Users;
+using NTNP.EFCore.Models.Vocabularies;
 
 namespace NTNP.EFCore.Context
 {
@@ -18,6 +19,7 @@ namespace NTNP.EFCore.Context
 
         public DbSet<User> Users { get; set; }
         public DbSet<ApplicationParameter> ApplicationParameters { get; set; }
+        public DbSet<Vocabulary> Vocabularies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
