@@ -10,7 +10,14 @@ namespace NTNP.AppServices.VocabularyAppServices.Validation
 
         public CreateVocabularyValidation(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
+            RuleFor(x => x.Name).NotNull().NotEmpty().Must(IsNameNotExist).WithMessage("Name already exist");
 
+        }
+
+        private  bool IsNameNotExist(string name)
+        {
+            return ! _unitOfWork.VocabularyRepository.IsNameExist(name);
         }
     }
 }

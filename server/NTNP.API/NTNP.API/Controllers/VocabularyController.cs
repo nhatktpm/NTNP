@@ -12,7 +12,7 @@ namespace NTNP.API.Controllers
         private readonly IVocabularyAppService _vocabularyAppService;
         public VocabularyController(IVocabularyAppService vocabularyAppService)
         {
-            _vocabularyAppService= vocabularyAppService;
+            _vocabularyAppService = vocabularyAppService;
         }
 
         [HttpPost]
@@ -68,6 +68,14 @@ namespace NTNP.API.Controllers
         public async Task<ActionResult> UpdateAsync([FromBody] UpdateVocabularyRequest body)
         {
             var response = await _vocabularyAppService.UpdateAsync(body);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("hard-delete-vocabulary")]
+        public ActionResult HardDelete([FromBody] DeleteVocabularyRequest body)
+        {
+            var response = _vocabularyAppService.HardDelete(body);
             return Ok(response);
         }
     }

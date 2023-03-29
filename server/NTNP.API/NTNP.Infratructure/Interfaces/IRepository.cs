@@ -10,5 +10,6 @@ namespace NTNP.Infratructure.Interfaces
         T Find(int id);
         Task<EntityEntry<T>> AddAsync(T entity, CancellationToken cancellationToken = default);
         void Update(T entity);
+        void HardDelete(T etity);
     }
 }

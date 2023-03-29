@@ -1,6 +1,8 @@
-﻿namespace NTNP.AppServices.VocabularyAppServices.Dtos.RequestDtos
+﻿using NTNP.AppServices.Common.Mapping;
+
+namespace NTNP.AppServices.VocabularyAppServices.Dtos.RequestDtos
 {
-    public class UpdateVocabularyRequest
+    public class UpdateVocabularyRequest : IMapTo<EFCore.Models.Vocabularies.Vocabulary>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,7 +14,10 @@
 
         public void Mapping(AutoMapper.Profile profile)
         {
-            profile.CreateMap<CreateVocabularyRequest, EFCore.Models.Vocabularies.Vocabulary>()
+            profile.CreateMap<UpdateVocabularyRequest, EFCore.Models.Vocabularies.Vocabulary>()
+                .ForMember(
+                    dest => dest.Id,
+                    options => options.MapFrom(source => source.Id))
                 .ForMember(
                     dest => dest.Name,
                     options => options.MapFrom(source => source.Name))
@@ -27,10 +32,7 @@
                     options => options.MapFrom(source => source.Path))
                 .ForMember(
                     dest => dest.Comment,
-                    options => options.MapFrom(source => source.Comment))
-                .ForMember(
-                    dest => dest.CreatedAt,
-                    options => options.MapFrom(source => source.CreatedAt));
+                    options => options.MapFrom(source => source.Comment));
         }
     }
 }

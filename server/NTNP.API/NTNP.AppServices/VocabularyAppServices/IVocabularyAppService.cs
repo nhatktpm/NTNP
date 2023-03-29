@@ -21,5 +21,6 @@ namespace NTNP.AppServices.VocabularyAppServices
         Task<ResponseComonDto> UpdateAsync(UpdateVocabularyRequest requestDto);
 
         Task<ResponseComonDto> DeleteAsync(DeleteVocabularyRequest requestDto);
+        ResponseComonDto HardDelete(DeleteVocabularyRequest requestDto);
     }
 }

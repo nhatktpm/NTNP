@@ -25,9 +25,14 @@ namespace NTNP.Infratructure.Repositories.Vocabularies
             return results;
         }
 
-        public bool IsNameExistById(string id, string name)
+        public bool IsNameExistById(int id, string name)
         {
-            return DbSet.Any(x => string.Equals(x.Name.ToLower(), name.ToLower().Trim()) && !string.Equals(x.Id, id));
+            return DbSet.Any(x => string.Equals(x.Name.ToLower(), name.ToLower().Trim()) && !int.Equals(x.Id, id));
+        }
+
+        public bool IsNameExist(string name)
+        {
+            return DbSet.Any(_gr => _gr.Name.ToLower().Equals(name.ToLower()));
         }
     }
 }

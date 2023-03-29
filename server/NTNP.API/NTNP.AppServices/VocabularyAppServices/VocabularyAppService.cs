@@ -24,11 +24,11 @@ namespace NTNP.AppServices.VocabularyAppServices
             ResponseComonDto response = new ResponseComonDto();
 
             Vocabulary vocabulary = _mapper.Map<CreateVocabularyRequest, Vocabulary>(requestDto);
-          
+
             await _unitOfWork.VocabularyRepository.AddAsync(vocabulary);
             await _unitOfWork.CommitAsync();
 
-            response.Success= true;
+            response.Success = true;
             response.Data = vocabulary;
             return response;
         }
@@ -41,8 +41,8 @@ namespace NTNP.AppServices.VocabularyAppServices
             {
                 vocabulary.Deleted = true;
                 await _unitOfWork.CommitAsync();
-                
-                response.Success= true;
+
+                response.Success = true;
                 response.Data = vocabulary;
                 return response;
             }
@@ -88,6 +88,19 @@ namespace NTNP.AppServices.VocabularyAppServices
             _mapper.Map(requestDto, vocabulary);
             _unitOfWork.VocabularyRepository.Update(vocabulary);
             await _unitOfWork.CommitAsync();
+
+            response.Data = vocabulary;
+            response.Success = true;
+            return response;
+        }
+
+        public ResponseComonDto HardDelete(DeleteVocabularyRequest requestDto)
+        {
+            ResponseComonDto response = new ResponseComonDto();
+            Vocabulary vocabulary = _unitOfWork.VocabularyRepository.Find(requestDto.Id);
+
+            _unitOfWork.VocabularyRepository.HardDelete(vocabulary);
+            _unitOfWork.Commit();
 
             response.Data = vocabulary;
             response.Success = true;

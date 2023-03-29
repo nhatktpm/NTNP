@@ -18,5 +18,6 @@ namespace NTNP.Infratructure
             VocabularyRepository = vocabularyRepository;
         }
         public Task<int> CommitAsync() => _dbFactory.DbContext.SaveChangesAsync();
+        public int Commit() => _dbFactory.DbContext.SaveChanges();
     }
 }

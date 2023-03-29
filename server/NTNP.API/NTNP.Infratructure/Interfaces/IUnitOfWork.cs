@@ -6,8 +6,9 @@ namespace NTNP.Infratructure.Interfaces
     public interface IUnitOfWork
     {
         IUserRepository UserRepository { get; }
-        IVocabularyRepository VocabularyRepository { get; } 
+        IVocabularyRepository VocabularyRepository { get; }
 
         Task<int> CommitAsync();
+        int Commit();
     }
 }

@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using NLog.Extensions.Logging;
 using NLog.Web;
@@ -6,6 +7,7 @@ using NTNP.API.Migrations;
 using NTNP.AppServices;
 using NTNP.EFCore.Context;
 using NTNP.Infratructure;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,12 @@ IConfiguration configuration = new ConfigurationBuilder()
 NLog.LogManager.Configuration = new NLogLoggingConfiguration(configuration.GetSection("NLog"));
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+                .AddFluentValidation(configuration =>
+                {
+                    configuration.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+                });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -7,6 +7,7 @@ namespace NTNP.Infratructure.Repositories.Vocabularies
     {
         public List<EFCore.Models.Vocabularies.Vocabulary> ForPage(ListBaseRequestModel model);
 
-        public bool IsNameExistById(string id, string name);
+        public bool IsNameExistById(int id, string name);
+        bool IsNameExist(string name);
     }
 }
