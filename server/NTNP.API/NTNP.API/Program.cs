@@ -1,13 +1,17 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using NTNP.API.Middlewares;
 using NTNP.API.Migrations;
 using NTNP.AppServices;
 using NTNP.EFCore.Context;
+using NTNP.EFCore.Models.AppSettings;
 using NTNP.Infratructure;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,8 +54,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-
-
 builder.Services.AddDbContext<NTNPContext>(
             options => options.UseNpgsql(configuration.GetConnectionString("NTNP"), b => b.MigrationsAssembly("NTNP.API")));
 
@@ -59,6 +61,26 @@ builder.Services.AddDbContext<NTNPContext>(
 builder.Services.AddAppService();
 builder.Services.AddInfrastructureServices();
 
+
+var appSettingsSection = configuration.GetSection("AppSettings");
+builder.Services.Configure<AppSetting>(appSettingsSection);
+var appSettings = appSettingsSection.Get<AppSetting>();
+var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+var x = configuration.GetValue<string>("Issuer");
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ValidIssuer = configuration.GetValue<string>("Issuer"),
+        };
+    });
+
+//
 builder.Host.UseNLog();
 
 var app = builder.Build();
@@ -81,6 +103,7 @@ app.Migrate();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
