@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NTNP.AppServices.VocabularyAppServices;
 using NTNP.AppServices.VocabularyAppServices.Dtos.RequestDtos;
+using NTNP.EFCore.Models.Users;
 
 namespace NTNP.API.Controllers
 {
@@ -23,6 +25,7 @@ namespace NTNP.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
         [Route("get-vocabulary")]
         public async Task<ActionResult> GetAsync([FromBody] GetVocabularyRequest body)
@@ -31,6 +34,7 @@ namespace NTNP.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("get-list-vocabulary")]
         public async Task<ActionResult> GetListAsync()
@@ -46,7 +50,7 @@ namespace NTNP.API.Controllers
             var response = await _vocabularyAppService.DeleteAsync(body);
             return Ok(response);
         }
-
+        [Authorize]
         [HttpPost]
         [Route("get-combobox-vocabulary")]
         public async Task<ActionResult> GetComboboxAsync()

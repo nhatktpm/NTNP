@@ -9,8 +9,8 @@ namespace NTNP.EFCore.Models.Users
         {
             builder.ToTable(nameof(User));
             builder.HasData(
-                new User() { Id = 1, Name = "nhat", Email = "nhatmytasdu@gmail" },
-                new User() { Id = 2, Name = "nhu", Email = "asd@gmail" }
+                new User() { Id = 1, Name = "nhat", Email = "nhatmytasdu@gmail", Password = "123", Role = Roles.Admin },
+                new User() { Id = 2, Name = "nhu", Email = "asd@gmail", Password = "123123", Role = Roles.User }
                 );
         }
     }
